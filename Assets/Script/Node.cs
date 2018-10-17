@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Node : MonoBehaviour {
     public Transform CameraTrans;
+    public Collider mCollider;
+    //public string UDPMessage;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -13,4 +16,12 @@ public class Node : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void TurnOffCollider() {
+        mCollider.enabled = false;
+    }
+
+    public void TurnOnCollider() {
+        mCollider.enabled = true;
+    }
 }
