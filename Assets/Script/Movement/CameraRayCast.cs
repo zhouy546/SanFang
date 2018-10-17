@@ -28,12 +28,12 @@ public class CameraRayCast : MonoBehaviour {
 
                     Debug.Log("Hit");
 
-                    foreach (var item in cameraMover.nodes)
+                    foreach (var item in NodeCtr.instance.nodes)
                     {
                         item.TurnOffCollider();
                     }
 
-                    int num = cameraMover.nodes.IndexOf(node);
+                    int num = NodeCtr.instance.nodes.IndexOf(node);
 
                     CanvasCtr.instance.ShowAll(num);
 

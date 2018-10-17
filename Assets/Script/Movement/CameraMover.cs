@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraMover : MonoBehaviour {
     public static CameraMover instance;
     public Transform CameraDefaultTrans;
-    public List<Node> nodes = new List<Node>();
+
 
     LTDescr move;
     LTDescr rot;
@@ -15,13 +15,13 @@ public class CameraMover : MonoBehaviour {
     public int CurrentNodeNum {
         get { return currentNodeNum; }
         set {
-            if (currentNodeNum <= nodes.Count - 1&&currentNodeNum>=0)
+            if (currentNodeNum <= NodeCtr.instance.nodes.Count - 1&&currentNodeNum>=0)
             {
                 if (value == -1)
                 {
                     return;
                 }
-                else if(value == nodes.Count) { return; }
+                else if(value == NodeCtr.instance.nodes.Count) { return; }
                 currentNodeNum = value;
                // Debug.Log(currentNodeNum);
 
@@ -46,11 +46,14 @@ public class CameraMover : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             MoveCameraToPos(CameraDefaultTrans);
             CanvasCtr.instance.HideAll();
-            foreach (var item in nodes)
+            foreach (var item in NodeCtr.instance.nodes)
             {
                 item.TurnOnCollider();
+                item.videoCtr.StopVideo();
             }
             Debug.Log("返回");
+
+
 
         }
 
@@ -61,14 +64,19 @@ public class CameraMover : MonoBehaviour {
             LeanTween.cancel(rot.id);
             LeanTween.cancel(move.id);
         }
-        currentNodeNum = nodes.IndexOf(node);
+        currentNodeNum = NodeCtr.instance.nodes.IndexOf(node);
 
         this.transform.SetParent(node.CameraTrans);
         rot =  LeanTween.rotateLocal(this.gameObject, Vector3.zero, 1f).setDelay(0.25f);
         move =    LeanTween.moveLocal(this.gameObject, Vector3.zero, 1f).setDelay(0.25f).setOnComplete(()=>isMoving=false);
 
 
-        Debug.Log(nodes.IndexOf(node)+"udp");
+        Debug.Log(NodeCtr.instance.nodes.IndexOf(node)+"udp");
+        int num = NodeCtr.instance.nodes.IndexOf(node);
+        string path = ValueSheet.VideoLoaction[num];
+
+        NodeCtr.instance.TheNodeVideo(num, path);
+
        // }
     }
 

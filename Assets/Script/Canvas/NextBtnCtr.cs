@@ -20,7 +20,7 @@ public class NextBtnCtr : MonoBehaviour {
             btns[0].Hide();
             btns[1].Show();
         }
-        else if (num == CameraMover.instance.nodes.Count - 1)
+        else if (num == NodeCtr.instance.nodes.Count - 1)
         {
             btns[0].Show();
             btns[1].Hide();

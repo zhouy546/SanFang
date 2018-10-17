@@ -5,6 +5,7 @@ using UnityEngine;
 public class Node : MonoBehaviour {
     public Transform CameraTrans;
     public Collider mCollider;
+    public VideoCtr videoCtr;
     //public string UDPMessage;
 
 	// Use this for initialization

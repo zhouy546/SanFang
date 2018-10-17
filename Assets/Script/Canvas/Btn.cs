@@ -28,7 +28,7 @@ public class Btn : MonoBehaviour {
         cameraMover.CurrentNodeNum--;
 
        // Debug.Log("current num is : " + cameraMover.CurrentNodeNum.ToString());
-      cameraMover.MoveCameraToPos(cameraMover.nodes[cameraMover.CurrentNodeNum]);
+      cameraMover.MoveCameraToPos(NodeCtr.instance.nodes[cameraMover.CurrentNodeNum]);
 
         UpdateBtn(cameraMover.CurrentNodeNum);
 
@@ -37,7 +37,7 @@ public class Btn : MonoBehaviour {
     public void MoveRight() {
         CameraMover cameraMover = CameraMover.instance;
         cameraMover.CurrentNodeNum++;
-        cameraMover.MoveCameraToPos(cameraMover.nodes[cameraMover.CurrentNodeNum]);
+        cameraMover.MoveCameraToPos(NodeCtr.instance.nodes[cameraMover.CurrentNodeNum]);
         UpdateBtn(cameraMover.CurrentNodeNum);
 
     }
