@@ -11,6 +11,8 @@ public class CameraMover : MonoBehaviour {
     LTDescr move;
     LTDescr rot;
 
+    public int screenPosNum=0;
+
     private int currentNodeNum;
     public int CurrentNodeNum {
         get { return currentNodeNum; }
@@ -45,11 +47,13 @@ public class CameraMover : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             MoveCameraToPos(CameraDefaultTrans);
-            CanvasCtr.instance.HideAll();
+           // CanvasCtr.instance.HideAll();
             foreach (var item in NodeCtr.instance.nodes)
             {
                 item.TurnOnCollider();
                 item.videoCtr.StopVideo();
+
+                item.Show();
             }
             Debug.Log("返回");
 
@@ -72,10 +76,10 @@ public class CameraMover : MonoBehaviour {
 
 
         Debug.Log(NodeCtr.instance.nodes.IndexOf(node)+"udp");
-        int num = NodeCtr.instance.nodes.IndexOf(node);
-        string path = ValueSheet.VideoLoaction[num];
+       StartCoroutine( MoveScreen(NodeCtr.instance.nodes.IndexOf(node)));
 
-        NodeCtr.instance.TheNodeVideo(num, path);
+        //int num = NodeCtr.instance.nodes.IndexOf(node);
+
 
        // }
     }
@@ -92,5 +96,48 @@ public class CameraMover : MonoBehaviour {
         rot = LeanTween.rotateLocal(this.gameObject, Vector3.zero, 1f).setDelay(0.25f);
         move = LeanTween.moveLocal(this.gameObject, Vector3.zero, 1f).setDelay(0.25f).setOnComplete(() => isMoving = false);
         // }
+    }
+
+
+    public IEnumerator MoveScreen(int targetPos) {
+
+        screenPosNum = targetPos;
+        //  int leftRight = screenPosNum - targetPos;
+
+        //    Debug.Log("Hide UI");
+
+        NodeCtr.instance.StopAll();
+       CanvasCtr.instance.HideAll();
+
+        foreach (var item in NodeCtr.instance.nodes)
+        {
+            item.Show();
+        }
+
+        int num = targetPos + 1;
+
+        SendUPDData.instance.udp_Send(num.ToString());
+
+        //while (targetPos != screenPosNum) {
+        //    if (leftRight > 0)
+        //    {//向左
+        //        screenPosNum--;
+        //        SendUPDData.instance.udp_Send("left");
+        //    }
+        //    else if (leftRight < 0)//向右
+        //    {
+        //        screenPosNum++;
+
+        //        SendUPDData.instance.udp_Send("right");
+
+        //    }
+
+        //    yield return new WaitForSeconds(5f);//移动屏幕移动到每一个点的等待时间
+        //}
+
+
+        yield return new WaitForSeconds(0.5f);
+
+
     }
 }

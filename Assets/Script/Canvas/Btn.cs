@@ -16,10 +16,12 @@ public class Btn : MonoBehaviour {
     }
 
     public void Show() {
+       // Debug.Log("ShowBtn");
         animator.SetBool("Show", true);
     }
 
     public void Hide() {
+        //Debug.Log("HideButton");
         animator.SetBool("Show", false);
     }
 
@@ -30,7 +32,7 @@ public class Btn : MonoBehaviour {
        // Debug.Log("current num is : " + cameraMover.CurrentNodeNum.ToString());
       cameraMover.MoveCameraToPos(NodeCtr.instance.nodes[cameraMover.CurrentNodeNum]);
 
-        UpdateBtn(cameraMover.CurrentNodeNum);
+      //  UpdateBtn(cameraMover.CurrentNodeNum);
 
     }
 
@@ -38,7 +40,7 @@ public class Btn : MonoBehaviour {
         CameraMover cameraMover = CameraMover.instance;
         cameraMover.CurrentNodeNum++;
         cameraMover.MoveCameraToPos(NodeCtr.instance.nodes[cameraMover.CurrentNodeNum]);
-        UpdateBtn(cameraMover.CurrentNodeNum);
+     //   UpdateBtn(cameraMover.CurrentNodeNum);
 
     }
 

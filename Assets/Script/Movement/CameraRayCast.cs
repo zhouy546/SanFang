@@ -35,7 +35,7 @@ public class CameraRayCast : MonoBehaviour {
 
                     int num = NodeCtr.instance.nodes.IndexOf(node);
 
-                    CanvasCtr.instance.ShowAll(num);
+                   // CanvasCtr.instance.ShowAll(num);
 
                     cameraMover.MoveCameraToPos(node);
 
