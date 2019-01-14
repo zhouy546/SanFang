@@ -55,7 +55,7 @@ public class SendUPDData : MonoBehaviour {
     }
 
     public void initialization() {
-        m_ip = "192.168.30.187";
+        m_ip = "192.168.1.69";
         if (instance == null) {
             instance = this;
         }
