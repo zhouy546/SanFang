@@ -27,11 +27,14 @@ public class DealWithUDPMessage : MonoBehaviour {
     /// <param name="_data"></param>
     public void MessageManage(string _data)
     {
+
         dataTest = _data;
         Debug.Log(dataTest);
 
-        if (dataTest == "1" || dataTest == "2"|| dataTest == "3"|| dataTest == "4")
+        if (dataTest== (CameraMover.instance.screenPosNum+1).ToString())
         {
+
+
             Debug.Log("ShowUI");
 
 

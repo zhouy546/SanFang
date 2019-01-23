@@ -19,7 +19,7 @@ public class GetUDPMessage : MonoBehaviour
 {
 
     [Tooltip("消息处理类")] public DealWithUDPMessage m_messageManage;
-    [Tooltip("接受端口号")] public static int m_ReceivePort = 29020;
+    [Tooltip("接受端口号")] public static int m_ReceivePort = 29010;
 
     private Socket m_newsock;//定义一个socket变量
     public static IPEndPoint m_ip;//定义一个IP地址和端口号

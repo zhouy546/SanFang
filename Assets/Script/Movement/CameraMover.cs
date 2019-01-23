@@ -11,6 +11,8 @@ public class CameraMover : MonoBehaviour {
     LTDescr move;
     LTDescr rot;
 
+    private float resetTime;
+
     public int screenPosNum=0;
 
     private int currentNodeNum;
@@ -35,11 +37,42 @@ public class CameraMover : MonoBehaviour {
     bool isMoving =false;
     // Use this for initialization
 	void Start () {
+        resetTime = ValueSheet.ResetTime;
+
         if (instance == null) {
             instance = this;
         }
+
+        StartCoroutine(CountDown());
 	}
 
+
+    IEnumerator CountDown() {
+
+        resetTime--;
+
+        yield return new WaitForSeconds(1f);
+
+        if (resetTime == 0) {
+            MoveCameraToPos(CameraDefaultTrans);
+            CanvasCtr.instance.HideAll();
+            // CanvasCtr.instance.HideAll();
+            foreach (var item in NodeCtr.instance.nodes)
+            {
+                item.TurnOnCollider();
+                item.videoCtr.StopVideo();
+
+                item.Show();
+            }
+            resetTime = ValueSheet.ResetTime;
+
+            Debug.Log("返回");
+
+        }
+
+
+        StartCoroutine(CountDown());
+    }
 
 
     // Update is called once per frame
@@ -64,6 +97,7 @@ public class CameraMover : MonoBehaviour {
 	}
 
     public void MoveCameraToPos(Node node) {
+        resetTime = ValueSheet.ResetTime;
         if (rot != null && move != null) {
             LeanTween.cancel(rot.id);
             LeanTween.cancel(move.id);
@@ -77,15 +111,11 @@ public class CameraMover : MonoBehaviour {
 
         Debug.Log(NodeCtr.instance.nodes.IndexOf(node)+"udp");
        StartCoroutine( MoveScreen(NodeCtr.instance.nodes.IndexOf(node)));
-
-        //int num = NodeCtr.instance.nodes.IndexOf(node);
-
-
-       // }
     }
 
     public void MoveCameraToPos(Transform CameraTrans)
     {
+        resetTime = ValueSheet.ResetTime;
         if (rot != null && move != null)
         {
             LeanTween.cancel(rot.id);
@@ -116,27 +146,11 @@ public class CameraMover : MonoBehaviour {
 
         int num = targetPos + 1;
 
-        SendUPDData.instance.udp_Send(num.ToString());
+        SendUPDData.instance.udp_Send(num.ToString(),29020);
 
-        //while (targetPos != screenPosNum) {
-        //    if (leftRight > 0)
-        //    {//向左
-        //        screenPosNum--;
-        //        SendUPDData.instance.udp_Send("left");
-        //    }
-        //    else if (leftRight < 0)//向右
-        //    {
-        //        screenPosNum++;
+        
 
-        //        SendUPDData.instance.udp_Send("right");
-
-        //    }
-
-        //    yield return new WaitForSeconds(5f);//移动屏幕移动到每一个点的等待时间
-        //}
-
-
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0f);
 
 
     }
